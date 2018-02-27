@@ -1,0 +1,35 @@
+@import "~react-infinite-calendar/styles.css";
+
+#root {
+  display: grid;
+  grid-template-areas:
+    "nav login"
+    "page page";
+  grid-template-rows: auto;
+  grid-template-columns: 90% 10%;
+  padding: 10px 10px 0px 10px;
+}
+#nav {
+  grid-area: nav;
+}
+#login {
+  grid-area: login;
+}
+.page {
+  grid-area: page;
+  display: grid;
+  grid-template-areas:
+    "head"
+    "tail";
+  grid-template-rows: auto;
+  grid-template-columns: auto;
+}
+.head {
+  grid-area: head;
+}
+.tail {
+  grid-area: tail;
+}
+#profile-pic {
+  width: 50px;
+}
