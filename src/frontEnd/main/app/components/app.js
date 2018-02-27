@@ -1,51 +1,41 @@
-import React, { Component } from "react";
-import { HashRouter, Route } from "react-router-dom";
-import { connect } from "react-redux";
-import { Nav, NavItem } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
-import { login, logout } from "./../actions/auth";
+import React, { Component } from 'react'
+import { HashRouter, Route } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { Nav, NavItem } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
+import { login, logout } from './../actions/auth'
 
+// eslint-disable-line unexpected-character
 @connect(store => {
-
   return {
     pages: (store.pages && store.pages.pages) ? store.pages.pages : [],
     isAuthenticated: store.auth.isAuthenticated
-  };
-
+  }
 }, dispatch => {
+  const onLogin = () => dispatch(login)
 
-  const onLogin = () => {
-    dispatch(login);
-  };
-
-  const onLogout = () => {
-    dispatch(logout);
-  };
+  const onLogout = () => dispatch(logout)
 
   // use RxJS to do this kinda stuff
-  window.streamAuthStatus(onLogin, onLogout);
+  window.streamAuthStatus(onLogin, onLogout)
 
-  return {};
-
+  return {}
 })
 export default class App extends Component {
-
-  render() {
-
+  render () {
     if (this.props.isAuthenticated) {
-
       return (
         <HashRouter>
           <div>
-            <div id="nav">
-              <Nav bsStyle="pills" activeKey={1} >
+            <div id='nav'>
+              <Nav bsStyle='pills' activeKey={1} >
                 {
                   this.props.pages.map((page, i) => {
                     return (
                       <LinkContainer to={page.href} key={i} >
                         <NavItem eventKey={i}>{page.title}</NavItem>
                       </LinkContainer>
-                    );
+                    )
                   })
                 }
               </Nav>
@@ -53,24 +43,20 @@ export default class App extends Component {
             {
               this.props.pages.map((page, i) => {
                 return (
-                  <div className="page" key={i}>
+                  <div className='page' key={i}>
                     <Route path={page.href} component={page} />
                   </div>
-                );
+                )
               })
             }
           </div>
-        </HashRouter>);
-
+        </HashRouter>)
     } else if (this.props.isAuthenticated === false) {
-
-      return <div>Please login</div>;
+      return <div>Please login</div>
     } else {
-
       return (
         <div>Loading ...</div>
-      );
+      )
     }
-
   }
 }

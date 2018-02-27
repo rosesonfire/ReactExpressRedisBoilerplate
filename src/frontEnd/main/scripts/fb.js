@@ -1,167 +1,141 @@
-const fbInitEvent = new Event("FBInit");
+const fbInitEvent = new Event('FBInit')
 
-window.fbAsyncInit = function() {
+window.fbAsyncInit = function () {
   // eslint-disable-next-line no-undef
   FB.init({
-    appId    : "126508851392364",
-    cookie   : true,
-    xfbml    : true,
-    version  : "v2.10"
-  });
+    appId: '126508851392364',
+    cookie: true,
+    xfbml: true,
+    version: 'v2.10'
+  })
   // eslint-disable-next-line no-undef
-  FB.AppEvents.logPageView();
+  FB.AppEvents.logPageView()
 
-  window.dispatchEvent(fbInitEvent);
+  window.dispatchEvent(fbInitEvent)
 };
 
-(function(d, s, id){
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "https://connect.facebook.net/en_US/sdk.js";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, "script", "facebook-jssdk"));
+(function (d, s, id) {
+  var js
+  var fjs = d.getElementsByTagName(s)[0]
+  if (d.getElementById(id)) { return }
+  js = d.createElement(s); js.id = id
+  js.src = 'https://connect.facebook.net/en_US/sdk.js'
+  fjs.parentNode.insertBefore(js, fjs)
+}(document, 'script', 'facebook-jssdk'))
 
 // Custom utility functions
 
-const awaitFB = new Promise((success, failure) => {
-
+const awaitFB = new Promise((resolve, reject) => {
   try {
     // eslint-disable-next-line no-unused-vars
-    window.addEventListener("FBInit", (event) => {
-      success(true);
-    });
+    window.addEventListener('FBInit', (event) => {
+      resolve(true)
+    })
   } catch (e) {
-    failure(e.message);
+    reject(e.message)
   }
-
-});
+})
 
 const getAuthStatus = async () => {
+  await awaitFB
 
-  await awaitFB;
-
-  const authStatus = await new Promise((success, failure) => {
-
+  const authStatus = await new Promise((resolve, reject) => {
     try {
       // eslint-disable-next-line no-undef
-      FB.getLoginStatus(success);
+      FB.getLoginStatus(resolve)
     } catch (e) {
-      failure(e.message);
+      reject(e.message)
     }
+  })
 
-  });
-
-  return authStatus;
-
-};
+  return authStatus
+}
 
 const checkAuthentication = (authStatus) => {
+  const isAuthenticated = authStatus && authStatus.status === 'connected'
 
-  const isAuthenticated = authStatus && authStatus.status === "connected";
-
-  return isAuthenticated;
-
-};
+  return isAuthenticated
+}
 
 // TODO: do this with RxJX
 const awaitFBReAuth = async () => {
+  await awaitFB
 
-  await awaitFB;
-
-  const reAuthStatus = await new Promise((success, failure) => {
-
+  const reAuthStatus = await new Promise((resolve, reject) => {
     try {
       const callback = authStatus => {
-
-        const isAuthenticated = checkAuthentication(authStatus);
+        const isAuthenticated = checkAuthentication(authStatus)
 
         if (isAuthenticated) {
           // eslint-disable-next-line no-undef
-          FB.Event.unsubscribe("auth.statusChange", callback);
-          success(authStatus);
+          FB.Event.unsubscribe('auth.statusChange', callback)
+          resolve(authStatus)
         }
-
-      };
+      }
       // eslint-disable-next-line no-undef
-      FB.Event.subscribe("auth.statusChange", callback);
-    } catch(e) {
-      failure(e);
+      FB.Event.subscribe('auth.statusChange', callback)
+    } catch (e) {
+      reject(e)
     }
+  })
 
-  });
-
-  return reAuthStatus;
-};
+  return reAuthStatus
+}
 
 const awaitFBAuth = async () => {
+  await awaitFB
 
-  await awaitFB;
-
-  const authStatus = await getAuthStatus();
-  const isAuthenticated = checkAuthentication(authStatus);
+  const authStatus = await getAuthStatus()
+  const isAuthenticated = checkAuthentication(authStatus)
 
   if (isAuthenticated) {
-
-    return authStatus;
+    return authStatus
   } else {
-    const reAuthStatus = await awaitFBReAuth();
+    const reAuthStatus = await awaitFBReAuth()
 
-    return reAuthStatus;
+    return reAuthStatus
   }
-
-};
+}
 
 export const getAuthKey = async () => {
+  const authStatus = await awaitFBAuth()
 
-  const authStatus = await awaitFBAuth();
-
-  return authStatus.authResponse.accessToken;
-
-};
+  return authStatus.authResponse.accessToken
+}
 
 export const fbAPI = async (query) => {
+  await awaitFBAuth()
 
-  await awaitFBAuth();
-
-  const response = await new Promise((success, failure) => {
-
+  const response = await new Promise((resolve, reject) => {
     try {
       // eslint-disable-next-line no-undef
-      FB.api(query, success);
+      FB.api(query, resolve)
     } catch (e) {
-      failure(e);
+      reject(e)
     }
+  })
 
-  });
-
-  return response;
-
-};
+  return response
+}
 
 // TODO: do this with RxJX
 export const streamAuthStatus = async (onLogin, onLogout) => {
-
-  await awaitFB;
+  await awaitFB
 
   const _callback = (authStatus) => {
-
     if (authStatus.status) {
-
-      const isAuthenticated = checkAuthentication(authStatus);
+      const isAuthenticated = checkAuthentication(authStatus)
 
       if (isAuthenticated) {
-        onLogin();
+        onLogin()
       } else {
-        onLogout();
+        onLogout()
       }
     }
-
-  };
+  }
   // eslint-disable-next-line no-undef
-  FB.Event.subscribe("auth.statusChange", _callback);
+  FB.Event.subscribe('auth.statusChange', _callback)
 
-  const authStatus = await getAuthStatus();
-  _callback(authStatus);
-
-};
+  const authStatus = await getAuthStatus()
+  _callback(authStatus)
+}

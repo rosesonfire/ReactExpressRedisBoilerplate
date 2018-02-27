@@ -1,7 +1,7 @@
-import chai from "chai";
-import assertArrays from "chai-arrays";
+import chai from 'chai'
+import assertArrays from 'chai-arrays'
 
-chai.should();
-chai.use(assertArrays);
+chai.should()
+chai.use(assertArrays)
 
-export const expect = chai.expect;
+export const expect = chai.expect

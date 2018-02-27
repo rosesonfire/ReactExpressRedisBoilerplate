@@ -1,23 +1,17 @@
-import passport from "passport";
-import Router from "./../../config/router";
+import passport from 'passport'
+import Router from './../../config/router'
 
 exports = module.exports = (pagesController) => {
-  
-  let router = null;
-  
+  let router = null
+
   try {
-
-    router = new Router(pagesController, passport);
-
+    router = new Router(pagesController, passport)
   } catch (e) {
-  
-    console.error(e.message.error);
-
+    console.error(e.message.error)
   }
 
-  return router;
-  
-};
+  return router
+}
 
-exports["@require"] = ["app/controllers/pagesController"];
-exports["@singleton"] = true;
+exports['@require'] = ['app/controllers/pagesController']
+exports['@singleton'] = true

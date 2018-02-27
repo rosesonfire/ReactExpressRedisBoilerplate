@@ -1,5 +1,5 @@
-import sinon from "sinon";
+import sinon from 'sinon'
 
 export default {
   setRoutes: sinon.mock()
-};
+}

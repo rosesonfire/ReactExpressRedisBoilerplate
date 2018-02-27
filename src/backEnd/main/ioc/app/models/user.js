@@ -1,23 +1,17 @@
-import user from "./../../../app/models/user";
-import userSchema from "./../../../../../dataAccess/schemas/user";
+import user from './../../../app/models/user'
+import userSchema from './../../../../../dataAccess/schemas/user'
 
 exports = module.exports = (db) => {
-
-  let User = null;
+  let User = null
 
   try {
-
-    User = user(db, userSchema);
-
+    User = user(db, userSchema)
   } catch (e) {
-
-    console.error(e.message.error);
-
+    console.error(e.message.error)
   }
 
-  return User;
+  return User
+}
 
-};
-
-exports["@require"] = ["lib/db"];
-exports["@singleton"] = true;
+exports['@require'] = ['lib/db']
+exports['@singleton'] = true

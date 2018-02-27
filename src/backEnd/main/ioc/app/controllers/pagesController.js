@@ -1,22 +1,16 @@
-import PagesController from "./../../../app/controllers/pagesController";
+import PagesController from './../../../app/controllers/pagesController'
 
 exports = module.exports = (pagesService) => {
-
-  let pagesController = null;
+  let pagesController = null
 
   try {
-
-    pagesController = new PagesController(pagesService);
-
+    pagesController = new PagesController(pagesService)
   } catch (e) {
-
-    console.error(e.message.error);
-
+    console.error(e.message.error)
   }
 
-  return pagesController;
+  return pagesController
+}
 
-};
-
-exports["@require"] = ["app/services/pagesService"];
-exports["@singleton"] = true;
+exports['@require'] = ['app/services/pagesService']
+exports['@singleton'] = true

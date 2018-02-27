@@ -1,16 +1,17 @@
-import ExtractTextPlugin from "extract-text-webpack-plugin";
-import WebpackOnBuildPlugin from "on-build-webpack";
-import HtmlWebpackPlugin from "html-webpack-plugin";
-import HtmlWebpackExcludeAssetsPlugin from "html-webpack-exclude-assets-plugin";
-import { exec } from "child_process";
-import { backEndConfig, frontEndConfig } from "./../../config";
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import WebpackOnBuildPlugin from 'on-build-webpack'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import HtmlWebpackExcludeAssetsPlugin from 'html-webpack-exclude-assets-plugin'
+import { exec } from 'child_process'
+import { backEndConfig, frontEndConfig } from './../../config'
+import path from 'path'
 
-const template = "./app/template.html";
-const scripts = "./scripts/script.js";
-const styles = "./styles/style.scss";
-const app = "./index.js";
-const imgPath = __dirname + "/img";
-const outputPath = __dirname + "/public";
+const template = './app/template.html'
+const scripts = './scripts/script.js'
+const styles = './styles/style.scss'
+const app = './index.js'
+const imgPath = path.join(__dirname, '/img')
+const outputPath = path.join(__dirname, '/public')
 
 module.exports = {
   entry: {
@@ -20,7 +21,7 @@ module.exports = {
   },
   output: {
     path: outputPath,
-    filename: "[name].min.js"
+    filename: '[name].min.js'
   },
   module: {
     rules: [
@@ -28,13 +29,13 @@ module.exports = {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract([
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               minimize: true
             }
           },
           {
-            loader: "sass-loader"
+            loader: 'sass-loader'
           }
         ])
       }
@@ -42,24 +43,24 @@ module.exports = {
   },
   plugins: [
     // new webpack.optimize.UglifyJsPlugin(),
-    new ExtractTextPlugin("[name].min.css"),
+    new ExtractTextPlugin('[name].min.css'),
     new HtmlWebpackPlugin({
       hash: true,
       template: template,
       excludeAssets: [/styles.*js/],
       // eslint-disable-next-line no-unused-vars
       chunksSortMode: (a, b) => {
-        if (a.names[0] === "app") {
-          return 1;
+        if (a.names[0] === 'app') {
+          return 1
         }
 
-        return -1;
+        return -1
       }
     }),
     new HtmlWebpackExcludeAssetsPlugin(),
     // eslint-disable-next-line no-unused-vars
     new WebpackOnBuildPlugin((stats) => {
-      exec("rm -rf " + outputPath + "/styles.min.js");
+      exec('rm -rf ' + outputPath + '/styles.min.js')
     })
   ],
   devServer: {
@@ -68,8 +69,8 @@ module.exports = {
     inline: true,
     open: true,
     proxy: {
-      "/service" : `http://${backEndConfig.host}:${backEndConfig.port}`
+      '/service': `http://${backEndConfig.host}:${backEndConfig.port}`
     },
     contentBase: imgPath
   }
-};
+}

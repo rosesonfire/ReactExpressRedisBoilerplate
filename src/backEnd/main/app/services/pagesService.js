@@ -1,17 +1,12 @@
 export default class PagesService {
-
-  constructor(Page) {
-
-    this.Page = Page;
-
+  constructor (Page) {
+    this.Page = Page
   }
 
-  async getPageIds() {
+  async getPageIds () {
+    const pages = await this.Page.find()
+    const pageIds = pages.map(page => page.id)
 
-    const pages = await this.Page.find();
-    const pageIds = pages.map(page => page.id);
-
-    return pageIds;
-
+    return pageIds
   }
 }

@@ -1,67 +1,51 @@
 /* eslint-disable no-undef */
 
-import "./../setup";
+import './../setup'
 // mocks
-import mongoose from "../mocks/others/mongoose";
-import db from "../mocks/lib/db";
+import mongoose from '../mocks/others/mongoose'
+import db from '../mocks/lib/db'
 // unit
-import mongooseWrapper from "./../../main/lib/mongooseWrapper";
+import mongooseWrapper from './../../main/lib/mongooseWrapper'
 
-describe("Mongoose Wrapper", () => {
-  
+describe('Mongoose Wrapper', () => {
   let
     host,
     dbName,
     port,
     promise,
-    mocks;
+    mocks
 
   before(() => {
-
-    host = "host",
-    dbName = "db",
-    port = 1234;
-    promise = {};
+    host = 'host'
+    dbName = 'db'
+    port = 1234
+    promise = {}
     mocks = [
       mongoose.createConnection
-    ];
-
-  });
+    ]
+  })
 
   beforeEach(() => {
-
-    mongoose.createConnection.once().withExactArgs(host, dbName, port).returns(db);
-    
-  });
+    mongoose.createConnection.once().withExactArgs(host, dbName, port).returns(db)
+  })
 
   afterEach(() => {
-
     mocks.forEach(mock => {
-      
-      mock.verify();
-      mock.reset();
+      mock.verify()
+      mock.reset()
+    })
+    delete mongoose.Promise
+  })
 
-    });
-    delete mongoose.Promise;
-    
-  });
+  describe('When getting mongoose wrapper', () => {
+    it('should return mongoose wrapper', () => {
+      mongooseWrapper(mongoose, host, dbName, port, promise).should.equal(db)
+    })
 
-  describe("When getting mongoose wrapper", () => {
-
-    it("should return mongoose wrapper", () => {
-  
-      mongooseWrapper(mongoose, host, dbName, port, promise).should.equal(db);
-        
-    });
-
-    it("should have correct Promise property", () => {
-      
-      mongooseWrapper(mongoose, host, dbName, port, promise);
-      mongoose.should.have.property("Promise");
-      mongoose.Promise.should.equal(promise);
-        
-    });
-
-  });
-
-});
+    it('should have correct Promise property', () => {
+      mongooseWrapper(mongoose, host, dbName, port, promise)
+      mongoose.should.have.property('Promise')
+      mongoose.Promise.should.equal(promise)
+    })
+  })
+})

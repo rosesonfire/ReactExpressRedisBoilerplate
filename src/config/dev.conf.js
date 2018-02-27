@@ -1,15 +1,15 @@
 module.exports = {
   db: {
-    host: "localhost",
+    host: 'localhost',
     port: 27017,
-    dbName: "pa-db"
+    dbName: 'pa-db'
   },
   backEnd: {
-    host: "localhost",
+    host: 'localhost',
     port: 8080
   },
   frontEnd: {
-    host: "localhost",
+    host: 'localhost',
     port: 8090
   }
-};
+}

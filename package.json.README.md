@@ -12,6 +12,8 @@
 1. **start-front-endr** - starts webpack dev server, then starts a watcher to detect changes in _dist/frontEnd_ folder and re-starts webpack dev server every time a change is detected.
 1. **start-servers-and-watchers** - runs **start-back-end**, **start-front-end** and **build-with-watch**.
 1. **start** - runs **clean-build**, then **start-servers-and-watchers**.
+1. **eslint-test** - runs standard in _src_
+1. **eslint-fix** - runs standard --fix in _src_
 1. **test-back-end** - runs Istanbul with mocha on back end to generate test coverage report, then opens the report on browser.
 1. **test-front-end** - runs Istanbul with mocha on front end to generate test coverage report, then opens the report on browser.
 1. **test-both-ends** - runs **test-back-end**, and **test-front-end**.
@@ -55,6 +57,7 @@
 1. **css-loader** - css loader for webpack.
 1. **eslint** - for eslint.
 1. **eslint-config-standard** - for eslint.
+1. **eslint-config-standard-react** - for eslint.
 1. **eslint-plugin-import** - for eslint.
 1. **eslint-plugin-node** - for eslint.
 1. **eslint-plugin-promise** - for eslint.
@@ -63,9 +66,11 @@
 1. **extract-text-webpack-plugin** - plugin for webpack to create separate bundled css file.
 1. **html-webpack-exclude-assets-plugin** - plugin for webpack to exclude static files from being injected into html file.
 1. **html-webpack-plugin** - for injecting webpack bundles into html file.
+1. **node-sass** - for compiling scss files.
 1. **nodemon** - for detecting changes in dist folder and auto-restarting server.
 1. **nyc** - cli for the test coverage framework Istanbul.
 1. **on-build-webpack** - to run scripts after every webpack build.
 1. **sass-loader** - for bundling scss in webpack.
+1. **standard** - for eslint.
 1. **webpack** - bundle static files and react files.
 1. **webpack-dev-server** - for serving static files after bundling with webpack.

@@ -1,16 +1,11 @@
 export default class PagesController {
-
-  constructor(pagesService) {
-
-    this.pagesService = pagesService;
-
+  constructor (pagesService) {
+    this.pagesService = pagesService
   }
 
-  async getPageIds(req, res) {
+  async getPageIds (req, res) {
+    const pageIds = await this.pagesService.getPageIds()
 
-    const pageIds = await this.pagesService.getPageIds();
-
-    res.send(pageIds);
-
+    res.send(pageIds)
   }
 }

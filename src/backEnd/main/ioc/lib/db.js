@@ -1,23 +1,17 @@
-import mongoose from "mongoose";
-import mongooseWrapper from "./../../lib/mongooseWrapper";
-import { dbConfig } from "./../../../../config";
+import mongoose from 'mongoose'
+import mongooseWrapper from './../../lib/mongooseWrapper'
+import { dbConfig } from './../../../../config'
 
 exports = module.exports = () => {
-
-  let db = null;
+  let db = null
 
   try {
-
-    db = mongooseWrapper(mongoose, dbConfig.host, dbConfig.dbName, dbConfig.port, Promise);
-
+    db = mongooseWrapper(mongoose, dbConfig.host, dbConfig.dbName, dbConfig.port, Promise)
   } catch (e) {
-  
-    console.error(e.message.error);
-
+    console.error(e.message.error)
   }
 
-  return db;
-  
-};
+  return db
+}
 
-exports["@singleton"] = true;
+exports['@singleton'] = true
