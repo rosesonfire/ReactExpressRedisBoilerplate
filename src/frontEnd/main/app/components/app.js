@@ -5,7 +5,6 @@ import { Nav, NavItem } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { login, logout } from './../actions/auth'
 
-// eslint-disable-line unexpected-character
 @connect(store => {
   return {
     pages: (store.pages && store.pages.pages) ? store.pages.pages : [],

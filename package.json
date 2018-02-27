@@ -39,12 +39,12 @@
     "start-front-end": "webpack-dev-server --watch --config $npm_package_config_webpack_config --context $npm_package_config_front_end_dir",
     "start-servers-and-watchers": "npm run start-back-end & npm run start-front-end & npm run build-with-watch",
     "start": "npm run clean-build && npm run start-servers-and-watchers",
-    "eslint-test": "standard \"$npm_package_config_src_dir_js_files\"",
-    "eslint-fix": "standard --fix \"$npm_package_config_src_dir_js_files\"",
+    "eslint-test": "standard --parser babel-eslint \"$npm_package_config_src_dir_js_files\"",
+    "eslint-fix": "standard --parser babel-eslint --fix \"$npm_package_config_src_dir_js_files\"",
     "test-back-end": "nyc --reporter=html --report-dir=$npm_package_config_back_end_coverage_dir --all --include=$npm_package_config_back_end_files --exclude=$npm_package_config_back_end_ioc_files --exclude=$npm_package_config_back_end_config_files --exclude=$npm_package_config_back_end_index_file mocha \"$npm_package_config_back_end_test_files\" && sensible-browser $npm_package_config_back_end_coverage",
     "test-front-end": "nyc --reporter=html --report-dir=$npm_package_config_front_end_coverage_dir --all --include=$npm_package_config_front_end_files mocha \"$npm_package_config_front_end_test_files\" && sensible-browser $npm_package_config_front_end_coverage",
     "test-both-ends": "npm run test-back-end & npm run test-front-end",
-    "test": "eslint-test && npm run clean-build && npm run test-both-ends"
+    "test": "npm run eslint-test && npm run clean-build && npm run test-both-ends"
   },
   "author": "Ishtiaque Khan",
   "license": "ISC",

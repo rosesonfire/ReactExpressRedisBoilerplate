@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undef
 const fbInitEvent = new Event('FBInit')
 
 window.fbAsyncInit = function () {
