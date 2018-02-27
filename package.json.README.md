@@ -32,6 +32,7 @@
 1. **node** - node core.
 1. **passport** - for authentication.
 1. **passport-accesstoken** - authentication strategy for passport.
+1. **prop-types** - for react component props validation.
 1. **react** - react core.
 1. **react-addons-css-transition-group** - for styling infinite calendar.
 1. **react-bootstrap** - react components for bootstrap.

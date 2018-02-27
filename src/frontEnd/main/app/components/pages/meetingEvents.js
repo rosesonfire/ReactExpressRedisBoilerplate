@@ -14,6 +14,10 @@ export default class MeetingEvents extends Component {
     return '/meeting-events'
   }
 
+  static get propTypes () {
+    return {}
+  }
+
   handleChange () {
     console.log('inside on change')
   }

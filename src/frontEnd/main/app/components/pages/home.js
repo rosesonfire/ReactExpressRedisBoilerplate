@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { PageHeader, Image } from 'react-bootstrap'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 @connect(store => {
   return {
@@ -19,6 +20,13 @@ export default class Home extends Component {
 
   static get href () {
     return '/home'
+  }
+
+  static get propTypes () {
+    return {
+      userName: PropTypes.string,
+      profilePicture: PropTypes.string
+    }
   }
 
   render () {
