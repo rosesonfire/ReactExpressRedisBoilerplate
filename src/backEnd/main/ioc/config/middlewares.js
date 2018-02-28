@@ -1,6 +1,9 @@
 import Middlewares from './../../config/middlewares'
 import bodyParser from 'body-parser'
 import passport from 'passport'
+import { Strategy as PassportStrategy } from 'passport-accesstoken'
+import session from 'express-session'
+import connectRedis from 'connect-redis'
 
 exports = module.exports = (User) => {
   let middlewares = null
@@ -9,8 +12,11 @@ exports = module.exports = (User) => {
     middlewares = new Middlewares(
       User,
       {
-        bodyParser: bodyParser,
-        passport: passport
+        bodyParser,
+        passport,
+        PassportStrategy,
+        session,
+        connectRedis
       }
     )
   } catch (e) {

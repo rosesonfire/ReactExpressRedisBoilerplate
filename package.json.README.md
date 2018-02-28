@@ -23,8 +23,10 @@
 1. **chai** - assertion framework for mocha.
 1. **chai-arrays** - chai extension for assertion on arrays.
 1. **colors** - for adding colors to console logs.
+1. **connect-redis** - for redis based session.
 1. **electrolyte** - for managing inversion of control and dependency injection.
 1. **express** - node web framework for developing the backend.
+1. **express-session** - for storing session data.
 1. **migrate-mongoose** - framework for handling mongo db migrations.
 1. **mocha** - testing framework.
 1. **mongodb** - for accessing mongoDB.
